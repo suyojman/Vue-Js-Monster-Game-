@@ -30,6 +30,7 @@ var app = new Vue({
             this.checkWin();
         },
         heal:function(){
+            var original_health = this.playerHealth 
             if(this.playerHealth > 100 ){
                 alert("You have enough health")
                 return;
@@ -65,7 +66,7 @@ var app = new Vue({
             });
         },
         attackPlayer:function(){
-            damage = this.calculateDamage(5,15)
+            damage = this.calculateDamage(2,8)
             this.playerHealth -= damage;
             this.turns.unshift({
                 isPlayer: false,
@@ -85,12 +86,15 @@ var app = new Vue({
         checkWin:function(){
            if (this.monsterHealth <=0){
                if(confirm("You Won !! New Game ? ")){
-                   this.startGame();
+                this.playerHealth =100;
+                this.monsterHealth =100;
+                this.turns = []
                    return true;
                }else{
                    this.isGameRunning = false;
                    this.playerHealth =100;
                    this.monsterHealth =100;
+                   this.turns = []
                }
 
            }else if (this.playerHealth <= 0 ){
